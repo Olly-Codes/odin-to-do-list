@@ -271,3 +271,115 @@ body {
     border-radius: var(--radius-md);
     min-height: 160px;
 }
+
+/* ----- MODALS */
+
+dialog {
+    position: fixed;
+    margin: auto;
+    background-color: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    width: min(420px, 90vw);
+    box-shadow: var(--shadow);
+    color: var(--text-primary);
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(3px);
+}
+
+dialog h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: var(--text-primary);
+}
+
+dialog form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+dialog input[type="text"],
+dialog input[type="date"],
+dialog textarea,
+dialog select {
+    width: 100%;
+    padding: 10px 14px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.875rem;
+    outline: none;
+    transition: all .2s ease;
+}
+
+dialog input[type="text"]::placeholder,
+dialog textarea::placeholder {
+    color: var(--text-muted);
+}
+
+dialog input[type="text"]:focus,
+dialog input[type="date"]:focus,
+dialog textarea:focus,
+dialog select:focus {
+    border-color: var(--accent);
+}
+
+dialog textarea {
+    resize: vertical;
+    min-height: 88px;
+    line-height: 1.5;
+}
+
+dialog select option {
+    background-color: var(--bg-elevated);
+}
+
+dialog form div:last-child {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 8px;
+}
+
+dialog form div:last-child button[type="submit"] {
+    padding: 9px 20px;
+    background-color: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+dialog form div:last-child button[type="submit"]:hover {
+    background-color: var(--accent-hover);
+}
+
+dialog form div:last-child button[type="button"] {
+    padding: 9px 20px;
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+dialog form div:last-child button[type="button"]:hover {
+    background-color: var(--bg-hover);
+    color: var(--text-primary);
+}
