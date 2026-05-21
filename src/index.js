@@ -25,16 +25,14 @@ const appController = (() => {
         title, 
         description, 
         dueDate, 
-        priority, 
-        notes, 
+        priority,  
         status
     ) => {
         const newTask = new Task( 
             title, 
             description, 
             dueDate, 
-            priority, 
-            notes, 
+            priority,  
             status
         );
 
@@ -52,7 +50,7 @@ const appController = (() => {
 
 const screenController = (() => {
     const app = appController;
-    const currentProject = appController.getCurrentProject();
+    // const currentProject = appController.getCurrentProject();
     const mainContainer = document.querySelector("#container");
 
     const projectList = document.createElement("ul");
@@ -67,9 +65,13 @@ const screenController = (() => {
     const contentDiv = document.createElement("div");
     contentDiv.classList.add("content");
 
-    const addBtn = document.createElement("button");
-    addBtn.type = "button";
-    addBtn.textContent = "Add Project";
+    const addProjectBtn = document.createElement("button");
+    addProjectBtn.type = "button";
+    addProjectBtn.textContent = "Add Project";
+    
+    const addTaskBtn = document.createElement("button");
+    addTaskBtn.type = "button";
+    addTaskBtn.textContent = "Add Task";
 
     mainContainer.appendChild(sideBar);
     mainContainer.appendChild(contentDiv);
@@ -78,6 +80,18 @@ const screenController = (() => {
         const projectTitle = prompt("Project Title?");
         app.addProject(projectTitle);
         updateSideBar();
+        return;
+    }
+
+    function handleAddTask() {
+        const currentProject = app.getCurrentProject();
+        const title = prompt("Title?");
+        const description = prompt("Description?");
+        const dueDate = prompt("DueDate?");
+        const priority = prompt("Priority?");
+        const status = false;
+        app.addTask(title, description, dueDate, priority, status);
+        updateContentDiv();
         return;
     }
 
@@ -95,13 +109,14 @@ const screenController = (() => {
             sideBar.appendChild(projectList);
         });
 
-        sideBar.appendChild(addBtn);
+        sideBar.appendChild(addProjectBtn);
     }
 
     const updateContentDiv = () => {
         contentDiv.textContent = "";
+        contentDiv.appendChild(addTaskBtn);
 
-        const projectTasks = currentProject.taskList;
+        const projectTasks = app.getCurrentProject().taskList;
         if (!projectTasks.length) {
             taskList.textContent = "No tasks added yet";
             contentDiv.appendChild(taskList);
@@ -152,7 +167,8 @@ const screenController = (() => {
         
     }
 
-    addBtn.addEventListener("click", handleAddProject);
+    addProjectBtn.addEventListener("click", handleAddProject);
+    addTaskBtn.addEventListener("click", handleAddTask);
 
     updateSideBar();
     updateContentDiv();
