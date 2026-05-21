@@ -95,6 +95,13 @@ const screenController = (() => {
         return;
     }
 
+    function handleProjectSwitch(projectId) {
+        app.switchProject(projectId);
+        updateSideBar();
+        updateContentDiv();
+        return;
+    }
+
     const updateSideBar = () => {
         sideBar.textContent = "";
         projectList.textContent = "";
@@ -107,6 +114,10 @@ const screenController = (() => {
 
             projectList.appendChild(projectItem);
             sideBar.appendChild(projectList);
+
+            projectItem.addEventListener("click", (project) => {
+                handleProjectSwitch(project.target.dataset.id)
+            });
         });
 
         sideBar.appendChild(addProjectBtn);
