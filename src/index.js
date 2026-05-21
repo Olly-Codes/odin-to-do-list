@@ -1,3 +1,4 @@
+import "./styles/styles.css";
 import Task from "./modules/tasks.js";
 import Project from "./modules/projects.js";
 import taskModal from "./modules/taskModal.js";
@@ -186,6 +187,7 @@ const screenController = (() => {
 
             const taskCard = document.createElement("div");
             taskCard.classList.add("task-card");
+            taskCard.dataset.priority = task.priority;
 
             const taskTitle = document.createElement("h1");
             taskTitle.textContent = task.title;
@@ -195,9 +197,6 @@ const screenController = (() => {
 
             const taskDate = document.createElement("p");
             taskDate.textContent = task.dueDate;
-
-            const taskPriority = document.createElement("p");
-            taskPriority.textContent = task.priority;
 
             const taskStatusWrapper = document.createElement("div");
             taskStatusWrapper.classList.add("status-wrapper");
@@ -219,7 +218,6 @@ const screenController = (() => {
             taskCard.appendChild(taskTitle);
             taskCard.appendChild(taskDescription);
             taskCard.appendChild(taskDate);
-            taskCard.appendChild(taskPriority);
             taskCard.appendChild(taskStatusWrapper);
             taskCard.appendChild(deleteTaskBtn);
 
@@ -233,7 +231,7 @@ const screenController = (() => {
 
             taskStatus.addEventListener("change", () => {
                 app.toggleTaskStatus(task);
-                console.log(`${task.title} status is now: ${task.status}`);
+                taskCard.classList.toggle("done", task.status);
             });
         }
         contentDiv.appendChild(taskList);
