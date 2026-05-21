@@ -79,7 +79,7 @@ body {
     margin-bottom: 8px;
 }
 
-.side-bar button {
+.side-bar > button {
     margin-top: auto;
     width: 100%;
     padding: 9px 14px;
@@ -94,7 +94,7 @@ body {
     transition: all .2s ease;
 }
 
-.side-bar button:hover {
+.side-bar > button:hover {
     border-color: var(--accent);
     color: var(--accent);
     background-color: var(--accent-subtle);
@@ -116,19 +116,35 @@ body {
     font-weight: 500;
     color: var(--text-secondary);
     transition: all .2s ease;
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.project-list li:hover {
-    background-color: var(--bg-hover);
-    color: var(--text-primary);
+.project-list li button {
+    flex-shrink: 0;
+    padding: 2px 6px;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0;
+    transition: all .2s ease;
 }
 
-.project-list li.active {
-    background-color: var(--accent-subtle);
-    color: var(--accent);
+.project-list li:hover button {
+    opacity: 1;
+}
+
+.project-list li button:hover {
+    background-color: rgba(224, 90, 90, 0.12);
+    color: var(--priority-high);
 }
 
 
@@ -250,6 +266,13 @@ body {
     cursor: pointer;
     transition: all .2s ease;
 }
+
+.task-card button:hover {
+    border-color: var(--priority-high);
+    color: var(--priority-high);
+    background-color: rgba(224, 90, 90, 0.08);
+}
+
 
 .task-card.done {
     opacity: 0.5;
