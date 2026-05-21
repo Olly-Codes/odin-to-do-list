@@ -136,6 +136,7 @@ const screenController = (() => {
 
     const updateContentDiv = () => {
         contentDiv.textContent = "";
+        taskList.textContent = "";
         contentDiv.appendChild(addTaskBtn);
 
         const projectTasks = app.getCurrentProject().taskList;
@@ -189,13 +190,19 @@ const screenController = (() => {
             taskCard.appendChild(deleteTaskBtn);
 
             taskItem.appendChild(taskCard);
-            contentDiv.appendChild(taskItem);
+
+            taskList.appendChild(taskItem);
 
             deleteTaskBtn.addEventListener("click", () => {
                 handleDeleteTask(taskItem.dataset.id);
-            })
+            });
+
+            taskStatus.addEventListener("change", () => {
+                task.toggleStatus();
+                console.log(`${task.title} status is now: ${task.status}`);
+            });
         }
-        
+        contentDiv.appendChild(taskList);
     }
 
     addProjectBtn.addEventListener("click", handleAddProject);
