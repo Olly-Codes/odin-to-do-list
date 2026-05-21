@@ -2,9 +2,11 @@ import Task from "./modules/tasks.js";
 import Project from "./modules/projects.js";
 import taskModal from "./modules/taskModal.js";
 import projectModal from "./modules/projectModal.js";
+import { saveToStorage, loadFromStorage } from "./modules/storage.js";
 
 const appController = (() => {
-    const projects = [new Project()];
+    const projectsFromStorage = loadFromStorage();
+    const projects = projectsFromStorage || [new Project()];
     let currentProject = projects[0];
 
     const getProjects = () => projects;
@@ -21,6 +23,7 @@ const appController = (() => {
 
     const addProject = (projectName) => {
         projects.push(new Project(projectName));
+        saveToStorage(projects);
     }
 
     const addTask = ( 
@@ -39,10 +42,17 @@ const appController = (() => {
         );
 
         currentProject.addTask(newTask);
+        saveToStorage(projects);
     }
 
     const deleteTask = (taskId) => {
         currentProject.deleteTask(taskId);
+        saveToStorage(projects);
+    }
+
+    const toggleTaskStatus = (task) => {
+        task.toggleStatus();
+        saveToStorage(projects);
     }
 
     return { 
@@ -51,7 +61,8 @@ const appController = (() => {
         addProject, 
         switchProject, 
         addTask,
-        deleteTask
+        deleteTask,
+        toggleTaskStatus
     }
 })();
 
@@ -87,8 +98,6 @@ const screenController = (() => {
     function handleAddProject() {
         projectModal.showModal();
         return;
-        app.addProject(projectTitle);
-        
     }
 
     projectModal.querySelector("#closeProjectModalBtn").addEventListener("click", () => {
@@ -223,7 +232,7 @@ const screenController = (() => {
             });
 
             taskStatus.addEventListener("change", () => {
-                task.toggleStatus();
+                app.toggleTaskStatus(task);
                 console.log(`${task.title} status is now: ${task.status}`);
             });
         }
