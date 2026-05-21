@@ -71,10 +71,11 @@ const screenController = (() => {
 
         const projects = app.getProjects();
         projects.forEach((project) => {
-            const li = document.createElement("li");
-            li.textContent = project.title;
+            const projectItem = document.createElement("li");
+            projectItem.dataset.id = project.id;
+            projectItem.textContent = project.title;
 
-            projectList.appendChild(li);
+            projectList.appendChild(projectItem);
             sideBar.appendChild(projectList);
         });
     }
