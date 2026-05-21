@@ -7,7 +7,7 @@ import { saveToStorage, loadFromStorage } from "./modules/storage.js";
 
 const appController = (() => {
     const projectsFromStorage = loadFromStorage();
-    const projects = projectsFromStorage || [new Project()];
+    let projects = projectsFromStorage || [new Project()];
     let currentProject = projects[0];
 
     const getProjects = () => projects;
@@ -24,6 +24,16 @@ const appController = (() => {
 
     const addProject = (projectName) => {
         projects.push(new Project(projectName));
+        saveToStorage(projects);
+    }
+
+    const deleteProject = (projectId) => {
+        if (projects.length <= 1) return;
+        projects = projects.filter((project) => project.id !== projectId);
+        if (currentProject.id === projectId) {
+            currentProject = projects[0];
+        }
+        
         saveToStorage(projects);
     }
 
@@ -59,7 +69,8 @@ const appController = (() => {
     return { 
         getProjects, 
         getCurrentProject, 
-        addProject, 
+        addProject,
+        deleteProject, 
         switchProject, 
         addTask,
         deleteTask,
@@ -158,8 +169,20 @@ const screenController = (() => {
             projectItem.dataset.id = project.id;
             projectItem.textContent = project.title;
 
+            const deleteProjectBtn = document.createElement("button");
+            deleteProjectBtn.type = "button";
+            deleteProjectBtn.textContent = "x";
+
+            projectItem.appendChild(deleteProjectBtn);
             projectList.appendChild(projectItem);
             sideBar.appendChild(projectList);
+
+            deleteProjectBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                app.deleteProject(project.id);
+                updateSideBar();
+                updateContentDiv();
+            });
 
             projectItem.addEventListener("click", (project) => {
                 handleProjectSwitch(project.target.dataset.id)
