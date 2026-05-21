@@ -39,18 +39,22 @@ const appController = (() => {
         currentProject.addTask(newTask);
     }
 
+    const deleteTask = (taskId) => {
+        currentProject.deleteTask(taskId);
+    }
+
     return { 
         getProjects, 
         getCurrentProject, 
         addProject, 
         switchProject, 
-        addTask 
+        addTask,
+        deleteTask
     }
 })();
 
 const screenController = (() => {
     const app = appController;
-    // const currentProject = appController.getCurrentProject();
     const mainContainer = document.querySelector("#container");
 
     const projectList = document.createElement("ul");
@@ -97,6 +101,13 @@ const screenController = (() => {
 
     function handleProjectSwitch(projectId) {
         app.switchProject(projectId);
+        updateSideBar();
+        updateContentDiv();
+        return;
+    }
+
+    function handleDeleteTask(taskId) {
+        app.deleteTask(taskId);
         updateSideBar();
         updateContentDiv();
         return;
@@ -163,6 +174,10 @@ const screenController = (() => {
             taskStatus.type = "checkbox";
             taskStatus.checked = task.status;
 
+            const deleteTaskBtn = document.createElement("button");
+            deleteTaskBtn.type = "button";
+            deleteTaskBtn.textContent = "Delete Task";
+
             taskStatusWrapper.appendChild(taskStatusText);
             taskStatusWrapper.appendChild(taskStatus);
 
@@ -171,9 +186,14 @@ const screenController = (() => {
             taskCard.appendChild(taskDate);
             taskCard.appendChild(taskPriority);
             taskCard.appendChild(taskStatusWrapper);
+            taskCard.appendChild(deleteTaskBtn);
 
             taskItem.appendChild(taskCard);
             contentDiv.appendChild(taskItem);
+
+            deleteTaskBtn.addEventListener("click", () => {
+                handleDeleteTask(taskItem.dataset.id);
+            })
         }
         
     }
