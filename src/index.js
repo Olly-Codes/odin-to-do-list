@@ -49,3 +49,35 @@ const appController = (() => {
         addTask 
     }
 })();
+
+const screenController = (() => {
+    const app = appController;
+    const mainContainer = document.querySelector("#container");
+
+    const projectList = document.createElement("ul");
+    projectList.classList.add("project-list");
+
+    const sideBar = document.createElement("aside");
+    sideBar.classList.add("side-bar");
+
+    const contentDiv = document.createElement("div");
+    contentDiv.classList.add("content");
+
+    mainContainer.appendChild(sideBar);
+    mainContainer.appendChild(contentDiv);
+
+    const updateSideBar = () => {
+        sideBar.textContent = "";
+
+        const projects = app.getProjects();
+        projects.forEach((project) => {
+            const li = document.createElement("li");
+            li.textContent = project.title;
+
+            projectList.appendChild(li);
+            sideBar.appendChild(projectList);
+        });
+    }
+
+    updateSideBar();
+})();
