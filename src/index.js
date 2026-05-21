@@ -7,7 +7,7 @@ import { saveToStorage, loadFromStorage } from "./modules/storage.js";
 
 const appController = (() => {
     const projectsFromStorage = loadFromStorage();
-    const projects = projectsFromStorage || [new Project()];
+    let projects = projectsFromStorage || [new Project()];
     let currentProject = projects[0];
 
     const getProjects = () => projects;
@@ -23,7 +23,12 @@ const appController = (() => {
     }
 
     const addProject = (projectName) => {
-        projects.push(new Project(projectName));
+        const newProject = new Project(projectName);
+        projects.push(newProject);
+
+        if (!currentProject) {
+            currentProject = newProject;
+        }
         saveToStorage(projects);
     }
 
