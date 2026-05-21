@@ -7,17 +7,8 @@ class Project {
         this.taskList = [];
     }
 
-    addTask(id, title, description, dueDate, priority, notes, status) {
-        const newTask = new Task(
-            id,
-            title,
-            description,
-            dueDate,
-            priority,
-            notes,
-            status
-        );
-        this.taskList.push(newTask);
+    addTask(task) {
+        this.taskList.push(task);
     }
 
     deleteTask(taskId) {
