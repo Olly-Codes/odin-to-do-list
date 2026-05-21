@@ -1,5 +1,6 @@
 import Task from "./modules/tasks.js";
 import Project from "./modules/projects.js";
+import taskModal from "./modules/modal.js";
 
 const appController = (() => {
     const projects = [new Project()];
@@ -77,6 +78,7 @@ const screenController = (() => {
     addTaskBtn.type = "button";
     addTaskBtn.textContent = "Add Task";
 
+    mainContainer.appendChild(taskModal);
     mainContainer.appendChild(sideBar);
     mainContainer.appendChild(contentDiv);
 
@@ -88,16 +90,25 @@ const screenController = (() => {
     }
 
     function handleAddTask() {
-        const currentProject = app.getCurrentProject();
-        const title = prompt("Title?");
-        const description = prompt("Description?");
-        const dueDate = prompt("DueDate?");
-        const priority = prompt("Priority?");
-        const status = false;
-        app.addTask(title, description, dueDate, priority, status);
-        updateContentDiv();
+        taskModal.showModal();
         return;
     }
+
+    taskModal.querySelector("#closeModalBtn").addEventListener("click", () => {
+        taskModal.close();
+    });
+
+    taskModal.querySelector("#taskForm").addEventListener("submit", (e) => {
+        const title = document.querySelector("#newTaskTitle").value;
+        const description = document.querySelector("#newTaskDesc").value;
+        const dueDate = document.querySelector("#newTaskDate").value;
+        const priority = document.querySelector("#newTaskPriority").value;
+        const status = false;
+
+        app.addTask(title, description, dueDate, priority, status);
+        e.target.reset();
+        updateContentDiv();
+    });
 
     function handleProjectSwitch(projectId) {
         app.switchProject(projectId);
