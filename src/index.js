@@ -1,6 +1,7 @@
 import Task from "./modules/tasks.js";
 import Project from "./modules/projects.js";
-import taskModal from "./modules/modal.js";
+import taskModal from "./modules/taskModal.js";
+import projectModal from "./modules/projectModal.js";
 
 const appController = (() => {
     const projects = [new Project()];
@@ -79,15 +80,28 @@ const screenController = (() => {
     addTaskBtn.textContent = "Add Task";
 
     mainContainer.appendChild(taskModal);
+    mainContainer.appendChild(projectModal);
     mainContainer.appendChild(sideBar);
     mainContainer.appendChild(contentDiv);
 
     function handleAddProject() {
-        const projectTitle = prompt("Project Title?");
-        app.addProject(projectTitle);
-        updateSideBar();
+        projectModal.showModal();
         return;
+        app.addProject(projectTitle);
+        
     }
+
+    projectModal.querySelector("#closeProjectModalBtn").addEventListener("click", () => {
+        projectModal.close();
+    });
+
+    projectModal.querySelector("#projectForm").addEventListener("submit", (e) => {
+        const title = document.querySelector("#newProjectTitle").value;
+
+        app.addProject(title);
+        e.target.reset();
+        updateSideBar();
+    });
 
     function handleAddTask() {
         taskModal.showModal();
