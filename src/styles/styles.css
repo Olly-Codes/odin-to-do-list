@@ -1,3 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap');
+
+*, 
+*::before, 
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-base:        #0f0f11;
+    --bg-surface:     #17171a;
+    --bg-elevated:    #1e1e23;
+    --bg-hover:       #26262d;
+
+    --border-subtle:  #2a2a32;
+    --border-default: #35353f;
+
+    --text-primary:   #f0f0f2;
+    --text-secondary: #8b8b9a;
+    --text-muted:     #55555f;
+
+    --accent:         #5b7fff;
+    --accent-hover:   #7090ff;
+    --accent-subtle:  rgba(91, 127, 255, 0.12);
+
+    --priority-high:   #e05a5a;
+    --priority-medium: #5b7fff;
+    --priority-low:    #4caf82;
+
+    --radius-sm:  6px;
+    --radius-md:  10px;
+    --radius-lg:  14px;
+    --shadow:     0 4px 24px rgba(0, 0, 0, 0.4);
+
+    font-size: 15px;
+}
+
 body {
-    background-color: red;
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    font-family: 'Geist', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* ----- CONTAINER */
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+
+/* ----- SIDBAR */
+
+.side-bar {
+    width: 240px;
+    background-color: var(--bg-surface);
+    border-right: 1px solid var(--border-subtle);
+    
+    display: flex;
+    flex-direction: column;
+    padding: 28px 16px;
+    gap: 4px;
+}
+
+.side-bar::before {
+    content: "Projects";
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0 8px;
+    margin-bottom: 8px;
+}
+
+.side-bar button {
+    margin-top: auto;
+    width: 100%;
+    padding: 9px 14px;
+    background: transparent;
+    border: 1px dashed var(--border-default);
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.side-bar button:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background-color: var(--accent-subtle);
+}
+
+.project-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+}
+
+.project-list li {
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: all .2s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.project-list li:hover {
+    background-color: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.project-list li.active {
+    background-color: var(--accent-subtle);
+    color: var(--accent);
 }
