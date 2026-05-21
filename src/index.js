@@ -67,11 +67,23 @@ const screenController = (() => {
     const contentDiv = document.createElement("div");
     contentDiv.classList.add("content");
 
+    const addBtn = document.createElement("button");
+    addBtn.type = "button";
+    addBtn.textContent = "Add Project";
+
     mainContainer.appendChild(sideBar);
     mainContainer.appendChild(contentDiv);
 
+    function handleAddProject() {
+        const projectTitle = prompt("Project Title?");
+        app.addProject(projectTitle);
+        updateSideBar();
+        return;
+    }
+
     const updateSideBar = () => {
         sideBar.textContent = "";
+        projectList.textContent = "";
 
         const projects = app.getProjects();
         projects.forEach((project) => {
@@ -82,6 +94,8 @@ const screenController = (() => {
             projectList.appendChild(projectItem);
             sideBar.appendChild(projectList);
         });
+
+        sideBar.appendChild(addBtn);
     }
 
     const updateContentDiv = () => {
@@ -130,7 +144,6 @@ const screenController = (() => {
             taskCard.appendChild(taskDescription);
             taskCard.appendChild(taskDate);
             taskCard.appendChild(taskPriority);
-            taskCard.appendChild(taskNotes);
             taskCard.appendChild(taskStatusWrapper);
 
             taskItem.appendChild(taskCard);
@@ -138,6 +151,8 @@ const screenController = (() => {
         }
         
     }
+
+    addBtn.addEventListener("click", handleAddProject);
 
     updateSideBar();
     updateContentDiv();
