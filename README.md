@@ -8,12 +8,11 @@ Additionally, users can create personal projects and store specific tasks in use
 <br />
 
 ## Added Tasks
-<img width="1920" height="962" alt="to-do-list-priority-tasks" src="https://github.com/user-attachments/assets/1cc166dd-7278-4299-9257-133cb63d5b40" />
+<img width="1920" height="962" alt="to-do-list-priority-tasks" src="https://github.com/user-attachments/assets/0c5f9f27-79be-4a33-b229-3231db1c6094" />
 <br />
 
 ## New Project
-<img width="1920" height="962" alt="to-do-list-gym-project" src="https://github.com/user-attachments/assets/52b6e788-145d-4c57-b96f-179814313477" />
-
+<img width="1920" height="962" alt="to-do-list-gym-project" src="https://github.com/user-attachments/assets/b5a977d4-7896-4350-976f-95862e7eff78" />
 
 ## Features
 - Adding of new tasks and projects
