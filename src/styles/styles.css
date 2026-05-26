@@ -184,32 +184,55 @@ body {
     gap: 12px;
 }
 
+
 .task-card {
     background-color: var(--bg-elevated);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
     padding: 18px 20px;
+
     display: grid;
     grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto auto;
-    column-gap: 16px;
-    row-gap: 6px;
+    grid-template-rows: 1fr auto;
+    row-gap: 10px;
     transition: all .2s ease;
 
     border-left: 3px solid var(--border-default);
+}
+
+.task-priority {
+    display: inline-block;
+    padding: 2px 10px;
+    text-align: center;
+    margin-top: 10px;
+    color: var(--text-primary);
+    border-radius: 2px;
+    cursor: pointer;
 }
 
 .task-card[data-priority="High"] {
     border-left-color: var(--priority-high);
 }
 
+.task-card[data-priority="High"] .task-priority {
+    background-color: var(--priority-high);
+} 
+
 .task-card[data-priority="Medium"] {
     border-left-color: var(--priority-medium);
 }
 
+.task-card[data-priority="Medium"] .task-priority {
+    background-color: var(--priority-medium);
+} 
+
 .task-card[data-priority="Low"] {
     border-left-color: var(--priority-low);
 }
+
+.task-card[data-priority="Low"] .task-priority {
+    background-color: var(--priority-low);
+} 
 
 .task-card h1 {
     font-size: 0.975rem;
@@ -223,23 +246,19 @@ body {
 .task-card > div:not(.status-wrapper) {
     font-size: 0.85rem;
     color: var(--text-secondary);
-    grid-column: 1;
-    grid-row: 2;
     line-height: 1.5;
+    grid-row: 1 / 3;
 }
 
 .task-card > p:first-of-type {
     font-size: 0.78rem;
     color: var(--text-muted);
     font-family: 'Geist Mono', monospace;
-    grid-column: 1;
-    grid-row: 3;
     align-self: center;
 }
 
 .status-wrapper {
     grid-column: 2;
-    grid-row: 1 / 3;
     display: flex;
     flex-direction: column;
     align-items: center;
