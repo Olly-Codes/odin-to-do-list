@@ -221,6 +221,13 @@ const screenController = (() => {
             const taskDate = document.createElement("p");
             taskDate.textContent = task.dueDate;
 
+            const taskPriority = document.createElement("p");
+            taskPriority.textContent = task.priority;
+            taskPriority.classList.add("task-priority");
+
+            const taskDetailsWrapper = document.createElement("div");
+            taskDetailsWrapper.classList.add("details-wrapper");
+
             const taskStatusWrapper = document.createElement("div");
             taskStatusWrapper.classList.add("status-wrapper");
 
@@ -238,10 +245,13 @@ const screenController = (() => {
             taskStatusWrapper.appendChild(taskStatusText);
             taskStatusWrapper.appendChild(taskStatus);
 
-            taskCard.appendChild(taskTitle);
-            taskCard.appendChild(taskDescription);
-            taskCard.appendChild(taskDate);
+            taskDetailsWrapper.appendChild(taskTitle);
+            taskDetailsWrapper.appendChild(taskDescription);
+            taskDetailsWrapper.appendChild(taskDate);
+            taskDetailsWrapper.appendChild(taskPriority);
+            
             taskCard.appendChild(taskStatusWrapper);
+            taskCard.appendChild(taskDetailsWrapper);
             taskCard.appendChild(deleteTaskBtn);
 
             taskItem.appendChild(taskCard);
